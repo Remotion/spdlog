@@ -5,13 +5,11 @@
 
 #pragma once
 
-#if defined(_MSC_VER)
 
 #include <spdlog/sinks/base_sink.h>
 #include <spdlog/details/null_mutex.h>
 
 #include <mutex>
-#include <string>
 
 namespace spdlog
 {
@@ -47,5 +45,3 @@ typedef c4d_sink<details::null_mutex> c4d_sink_st;
 
 }
 }
-
-#endif
