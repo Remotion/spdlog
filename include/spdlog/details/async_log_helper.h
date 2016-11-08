@@ -62,6 +62,7 @@ async_msg(async_msg&& other) SPDLOG_NOEXCEPT:
         logger_name(std::move(other.logger_name)),
                     level(std::move(other.level)),
                     time(std::move(other.time)),
+					thread_id(std::move(other.thread_id)),
                     txt(std::move(other.txt)),
                     msg_type(std::move(other.msg_type))
         {}
