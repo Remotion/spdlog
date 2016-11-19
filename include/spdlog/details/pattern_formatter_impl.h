@@ -621,16 +621,22 @@ inline void spdlog::pattern_formatter::handle_flag(char flag)
 
 inline void spdlog::pattern_formatter::format(details::log_msg& msg)
 {
-
 #ifndef SPDLOG_NO_DATETIME
     auto tm_time = details::os::localtime(log_clock::to_time_t(msg.time));
 #else
     std::tm tm_time;
 #endif
-    for (auto &f : _formatters)
+
+    /*for (const auto &f : _formatters) //TODO: why this loop causes crash in _Orphan_all() ???
     {
         f->format(msg, tm_time);
-    }
+    }*/
+
+	auto end = _formatters.end();
+	for (auto it = _formatters.begin(); it != end; ++it) { // this one work fine.
+		(*it)->format(msg, tm_time);
+	}
+
     //write eol
     msg.formatted.write(details::os::eol, details::os::eol_size);
 }
