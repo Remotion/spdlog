@@ -31,12 +31,17 @@ protected:
         auto data = msg.formatted.data();
         ///Hack to remove time part like this one [15:49:49.369] 
         if (size > 16) {
-            data = data + 15; //TODO: is there a better way for this ?
+            data = data + 15; // TODO: is there a better way for this ?
             size = size - 15;
         }
         String str;
         str.SetCString(data, size, STRINGENCODING_UTF8);
+#if API_VERSION >= 20000
+		maxon::_ApplicationOutput(maxon::TARGETAUDIENCE::ALL, maxon::WRITEMETA::DEFAULT,
+			str, __LINE__, __FILE__);
+#else
         GePrint(str);
+#endif
     }
 };
 
